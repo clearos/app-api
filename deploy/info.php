@@ -31,5 +31,9 @@ $app['core_requires'] = array(
 
 
 $app['core_file_manifest'] = array(
-   'api.acl' => array('target' => '/var/clearos/base/access_control/public/api'),
+    'api.acl' => array('target' => '/var/clearos/base/access_control/public/api'),
+    'api' => array(
+        'target' => '/usr/bin/api',
+        'mode' => '0755',
+    ),
 );

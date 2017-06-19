@@ -150,10 +150,7 @@ class Api extends ClearOS_Controller
                 } else if (empty($method)) {
                     $response = $this->api->get_methods($app, $class);
                 } else {
-                    if (preg_match('/^get_/', $method))
-                        $response = $this->api->get_result($app, $class, $method);
-                    else
-                        $response = $this->api->_response(ClearOS_API::CODE_ERROR, 'Just get() methods for now.', []);
+                    $response = $this->api->get_result($app, $class, $method);
                 }
             } catch (Exception $e) {
                 $response = $this->api->_response(ClearOS_API::CODE_ERROR, $e->getMessage(), []);

@@ -1,0 +1,123 @@
+#!/usr/clearos/sandbox/usr/bin/php
+<?php
+
+/**
+ * CLI helper for ClearOS API.
+ *
+ * @category   apps
+ * @package    api
+ * @subpackage scripts
+ * @author     ClearFoundation <developer@clearfoundation.com>
+ * @copyright  2017 ClearFoundation
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
+ * @link       http://www.clearfoundation.com/docs/developer/apps/api/
+ */
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// B O O T S T R A P
+///////////////////////////////////////////////////////////////////////////////
+
+$bootstrap = getenv('CLEAROS_BOOTSTRAP') ? getenv('CLEAROS_BOOTSTRAP') : '/usr/clearos/framework/shared';
+require_once $bootstrap . '/bootstrap.php';
+
+///////////////////////////////////////////////////////////////////////////////
+// D E P E N D E N C I E S
+///////////////////////////////////////////////////////////////////////////////
+//--------
+
+use \clearos\apps\api\API as API;
+
+clearos_load_library('api/API');
+
+///////////////////////////////////////////////////////////////////////////////
+// M A I N
+///////////////////////////////////////////////////////////////////////////////
+
+$app = isset($argv[1]) ? $argv[1] : "";
+$class = isset($argv[2]) ? $argv[2] : "";
+$method = isset($argv[3]) ? $argv[3] : "";
+
+$api = new API();
+
+// Check general usage issues
+//---------------------------
+
+if (empty($app)) {
+    $response = $api->get_apps();
+
+    echo "Installed apps:\n";
+
+    foreach ($response['result'] as $basename => $details)
+        echo sprintf( " - %-30s  %s\n", $basename, $details['name']);
+
+    echo "\nUsage: api <app> <class> <method> <param1> <param2> <param...>\n\n";
+
+    exit(1);
+}
+
+if (empty($class)) {
+    $response = $api->get_classes($app);
+
+    echo "Available classes:\n";
+
+    foreach ($response['result'] as $class)
+        echo " - $class\n";
+
+    exit(1);
+}
+
+if (empty($method)) {
+    echo "Available methods:\n";
+    show_methods($app, $class);
+    exit(1);
+}
+
+// Main
+//-----
+
+try {
+    $params = [];
+    $response = $api->get_result($app, $class, $method, $params);
+
+    if ($response['code'] === 0) {
+        $result = $response['result'];
+        print_r($result);
+    } else {
+        echo $response['message'];
+    }
+    echo "\n";
+} catch (Exception $e) {
+    echo "error: " . $e->GetMessage() . "\n";
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// show_methods: shows available methods in given object
+//
+///////////////////////////////////////////////////////////////////////////////
+
+function show_methods($app, $class)
+{
+    $api = new API();
+    $response = $api->get_methods($app, $class);
+
+    foreach ($response['result'] as $method)
+        echo sprintf( " %-30s\n", $method);
+}

@@ -34,6 +34,7 @@ This package provides the core API and libraries.
 mkdir -p -m 755 %{buildroot}/usr/clearos/apps/api
 cp -r * %{buildroot}/usr/clearos/apps/api/
 
+install -D -m 0755 packaging/api %{buildroot}/usr/bin/api
 install -D -m 0644 packaging/api.acl %{buildroot}/var/clearos/base/access_control/public/api
 
 %post
@@ -77,4 +78,5 @@ exit 0
 /usr/clearos/apps/api/deploy
 /usr/clearos/apps/api/language
 /usr/clearos/apps/api/libraries
+/usr/bin/api
 /var/clearos/base/access_control/public/api

@@ -208,6 +208,9 @@ class API extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
+        if (!preg_match('/^get_/', $method))
+            return $this->_response(API::CODE_ERROR, 'Just get() methods for now.', []);
+
         require_once clearos_app_base($app) . '/libraries/' . $class . '.php';
 
         $class_path = '\clearos\apps\\' . $app . '\\' . $class;
