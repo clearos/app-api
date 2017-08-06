@@ -137,7 +137,7 @@ class API extends Engine
         else if (array_key_exists($app, $all_apps))
             $app_list[$app] = $all_apps[$app];
         else
-            return $this->_response(1, [], 'Invalid app specified');
+            return $this->_response(1, 'Invalid app specified', []);
 
         $classes = [];
 
