@@ -109,8 +109,7 @@ class API extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        // FIXME: use a better way to enumerate apps/API
-        $app_list = clearos_get_apps();
+        $app_list = clearos_get_apis();
         $apps = [];
 
         foreach ($app_list as $basename => $details)
@@ -138,7 +137,7 @@ class API extends Engine
         else if (array_key_exists($app, $all_apps))
             $app_list[$app] = $all_apps[$app];
         else
-            return $this->_response(1, 'Invalid app specified', []);
+            return $this->_response(1, [], 'Invalid app specified');
 
         $classes = [];
 

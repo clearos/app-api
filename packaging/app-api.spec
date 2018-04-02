@@ -1,7 +1,7 @@
 
 Name: app-api
 Epoch: 1
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{dist}
 Summary: API Server
 License: GPLv3
@@ -19,7 +19,7 @@ Summary: API Server - API
 License: LGPLv3
 Group: Applications/API
 Requires: app-base-core
-Requires: clearos-framework >= 7.3.11
+Requires: clearos-framework >= 7.4.8
 
 %description core
 API Server for ClearOS.
