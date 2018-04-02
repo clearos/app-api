@@ -5,7 +5,7 @@ Version: 1.0.0
 Release: 1%{dist}
 Summary: API Server
 License: GPLv3
-Group: ClearOS/Apps
+Group: Applications/Apps
 Source: %{name}-%{version}.tar.gz
 Buildarch: noarch
 Requires: %{name}-core = 1:%{version}-%{release}
@@ -15,9 +15,9 @@ Requires: app-base
 API Server for ClearOS.
 
 %package core
-Summary: API Server - Core
+Summary: API Server - API
 License: LGPLv3
-Group: ClearOS/Libraries
+Group: Applications/API
 Requires: app-base-core
 Requires: clearos-framework >= 7.3.11
 

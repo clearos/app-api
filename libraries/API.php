@@ -109,6 +109,7 @@ class API extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
+        // FIXME: use a better way to enumerate apps/API
         $app_list = clearos_get_apps();
         $apps = [];
 
