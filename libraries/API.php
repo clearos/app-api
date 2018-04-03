@@ -130,7 +130,7 @@ class API extends Engine
     {
         clearos_profile(__METHOD__, __LINE__);
 
-        $all_apps = clearos_get_apps();
+        $all_apps = clearos_get_apis();
 
         if (empty($app))
             $app_list = $all_apps;

@@ -6,6 +6,8 @@ Release: 1%{dist}
 Summary: API Server
 License: GPLv3
 Group: Applications/Apps
+Packager: ClearFoundation
+Vendor: ClearFoundation
 Source: %{name}-%{version}.tar.gz
 Buildarch: noarch
 Requires: %{name}-core = 1:%{version}-%{release}
